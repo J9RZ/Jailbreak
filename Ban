@@ -1,0 +1,68 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local TextLabel1 = Instance.new("TextLabel")
+local ImageLabel = Instance.new("ImageLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.Workpace
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+Frame.BorderColor3 = Color3.fromRGB(36, 36, 36)
+Frame.Position = UDim2.new(0.744383037, 0, 0.863154352, 0)
+Frame.Size = UDim2.new(0, 127, 0, 45)
+Frame.Active = true
+Frame.Draggable = true
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Position = UDim2.new(0.213235214, 0, 0.321296215, 0)
+TextLabel.Size = UDim2.new(0, 77, 0, 21)
+TextLabel.Font = Enum.Font.GothamBlack
+TextLabel.Text = "0"
+TextLabel.TextColor3 = Color3.fromRGB(245, 245, 245)
+TextLabel.TextSize = 14.000
+
+TextLabel1.Name = "TextLabel1"
+TextLabel1.Parent = Frame
+TextLabel1.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel1.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel1.Position = UDim2.new(0, 0, -0.298147917, 0)
+TextLabel1.Size = UDim2.new(0, 127, 0, 27)
+TextLabel1.Font = Enum.Font.GothamBlack
+TextLabel1.Text = "Josh's Cash Counter"
+TextLabel1.TextColor3 = Color3.fromRGB(245, 245, 245)
+TextLabel1.TextSize = 10.000
+
+ImageLabel.Parent = Frame
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.Position = UDim2.new(0.120773643, 0, 0.206481248, 0)
+ImageLabel.Size = UDim2.new(0, 28, 0, 35)
+ImageLabel.Image = "http://www.roblox.com/asset/?id=9685223162"
+
+
+local function CashCheck()
+    local script = Instance.new('LocalScript', TextLabel)
+    while true do
+        local TheTotalServerCash = 0
+        for i, v in pairs(game:GetService('Workspace'):WaitForChild('Ignored'):WaitForChild('Drop'):GetChildren()) do
+            if v.Name == 'MoneyDrop' then
+                local function CalculateShits(s)
+                    local data = string.match(s, '%d[%d.,]*')
+                    local numdata = string.gsub(data, ",", "")
+                    return tonumber(numdata)
+                end
+                local cal = CalculateShits(v.BillboardGui.TextLabel.Text)
+                TheTotalServerCash = TheTotalServerCash + tonumber(cal)
+            end
+        end
+        TextLabel.Text = TheTotalServerCash
+        wait(1)
+    end
+
+end
+coroutine.wrap(CashCheck)()
